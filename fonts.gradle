@@ -8,7 +8,9 @@ def iconFontsDir = config.iconFontsDir ?: "../../node_modules/react-native-vecto
 def iconFontNames = config.iconFontNames ?: [ "*.ttf" ];
 
 gradle.projectsEvaluated {
-    android.applicationVariants.all { def variant ->
+    def isAndroidLibrary = plugins.hasPlugin("com.android.library")
+    def variants = isAndroidLibrary ? android.libraryVariants : android.applicationVariants
+    variants.all { def variant ->
         def targetName = variant.name.capitalize()
         def targetPath = variant.dirName
 
